@@ -92,7 +92,7 @@ def main():
                 """
                 if args['save_results']:
                     Image.fromarray(prediction).save(os.path.join(
-                        newrootname), img_name + '.png')
+                        newrootname, img_name + '.png')
         """
             fmeasure = cal_fmeasure([precord.avg for precord in precision_record],
                                     [rrecord.avg for rrecord in recall_record])

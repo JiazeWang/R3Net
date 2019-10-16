@@ -27,7 +27,7 @@ args = {
 }
 
 img_transform = transforms.Compose([
-    transforms.resize(300),
+    transforms.Resize(300),
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])

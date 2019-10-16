@@ -68,7 +68,7 @@ def main():
             mae_record = AvgMeter()
 
             if args['save_results']:
-                check_mkdir(os.path.join(newrootname))
+                check_mkdir(os.path.join(ckpt_path, exp_name, '(%s)%s_%s' % (exp_name, newrootname, args['snapshot'])))
             img_list = [os.path.splitext(f)[0] for f in os.listdir(root) if f.endswith('.jpg')]
             for idx, img_name in enumerate(img_list):
                 print 'predicting for  %d / %d' % ( idx + 1, len(img_list))
@@ -91,8 +91,8 @@ def main():
                 mae_record.update(mae)
                 """
                 if args['save_results']:
-                    Image.fromarray(prediction).save(os.path.join(
-                        newrootname), img_name + '.png')
+                    Image.fromarray(prediction).save(os.path.join(ckpt_path, exp_name, '(%s)%s_%s' % (
+                        newrootname, exp_name, args['snapshot']), img_name + '.png'))
         """
             fmeasure = cal_fmeasure([precord.avg for precord in precision_record],
                                     [rrecord.avg for rrecord in recall_record])

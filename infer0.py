@@ -13,7 +13,7 @@ from model import R3Net
 torch.manual_seed(2018)
 
 # set which gpu to use
-torch.cuda.set_device(0)
+torch.cuda.set_device(1)
 
 # the following two args specify the location of the file of trained model (pth extension)
 # you should have the pth file in the folder './$ckpt_path$/$exp_name$'
@@ -47,7 +47,7 @@ def main():
     with torch.no_grad():
 
         #for name, root in to_test.iteritems():
-        root = '/mnt/SSD/jzwang/frames/shot_used/tt0078841/shot_0699.mp4'
+        root = '/mnt/SSD/jzwang/frames/shot_used/tt0078841/shot_0431.mp4'
         precision_record, recall_record, = [AvgMeter() for _ in range(256)], [AvgMeter() for _ in range(256)]
         mae_record = AvgMeter()
 

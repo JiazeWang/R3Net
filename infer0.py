@@ -10,6 +10,18 @@ from config import ecssd_path, hkuis_path, pascals_path, sod_path, dutomron_path
 from misc import check_mkdir, crf_refine, AvgMeter, cal_precision_recall_mae, cal_fmeasure
 from model import R3Net
 
+import os
+import pdb
+filename_input = "/home/jzwang/code/shot_type/data/shot_type/shot_train.txt"
+with open(filename_input) as f:
+    lines = f.readlines()
+folders = []
+for line in lines:
+    line = line.rstrip()
+    items = line.split(' ')
+    folders.append(items[0])
+
+
 torch.manual_seed(2018)
 
 # set which gpu to use
@@ -50,46 +62,46 @@ def main():
 
     with torch.no_grad():
 
-        #for name, root in to_test.iteritems():
-        root = '/mnt/SSD/jzwang/frames/shot_used/tt0078841/shot_0250.mp4'
-        precision_record, recall_record, = [AvgMeter() for _ in range(256)], [AvgMeter() for _ in range(256)]
-        mae_record = AvgMeter()
+        for root in folders:
+            newrootname = root.split('/')[-2]+'_'+ root.split('/')[-1]
+            precision_record, recall_record, = [AvgMeter() for _ in range(256)], [AvgMeter() for _ in range(256)]
+            mae_record = AvgMeter()
 
-        if args['save_results']:
-            check_mkdir(os.path.join(ckpt_path, exp_name, '(%s)_%s' % (exp_name, args['snapshot'])))
-        img_list = [os.path.splitext(f)[0] for f in os.listdir(root) if f.endswith('.jpg')]
-        for idx, img_name in enumerate(img_list):
-            print 'predicting for  %d / %d' % ( idx + 1, len(img_list))
-
-            img = Image.open(os.path.join(root, img_name + '.jpg')).convert('RGB')
-            img_var = Variable(img_transform(img).unsqueeze(0), volatile=True).cuda()
-            imgnew = img_convert(img)
-            prediction = net(img_var)
-            prediction = np.array(to_pil(prediction.data.squeeze(0).cpu()))
-
-            if args['crf_refine']:
-                prediction = crf_refine(np.array(imgnew), prediction)
-            """
-            gt = np.array(Image.open(os.path.join(root, img_name + '.png')).convert('L'))
-            precision, recall, mae = cal_precision_recall_mae(prediction, gt)
-            for pidx, pdata in enumerate(zip(precision, recall)):
-                p, r = pdata
-                precision_record[pidx].update(p)
-                recall_record[pidx].update(r)
-            mae_record.update(mae)
-            """
             if args['save_results']:
-                Image.fromarray(prediction).save(os.path.join(ckpt_path, exp_name, '(%s)_%s' % (
-                    exp_name, args['snapshot']), img_name + '.png'))
-"""
-        fmeasure = cal_fmeasure([precord.avg for precord in precision_record],
-                                [rrecord.avg for rrecord in recall_record])
+                check_mkdir(os.path.join(ckpt_path, exp_name, '(%s)%s_%s' % (exp_name, newrootname, args['snapshot'])))
+            img_list = [os.path.splitext(f)[0] for f in os.listdir(root) if f.endswith('.jpg')]
+            for idx, img_name in enumerate(img_list):
+                print 'predicting for  %d / %d' % ( idx + 1, len(img_list))
 
-        results[name] = {'fmeasure': fmeasure, 'mae': mae_record.avg}
+                img = Image.open(os.path.join(root, img_name + '.jpg')).convert('RGB')
+                img_var = Variable(img_transform(img).unsqueeze(0), volatile=True).cuda()
+                imgnew = img_convert(img)
+                prediction = net(img_var)
+                prediction = np.array(to_pil(prediction.data.squeeze(0).cpu()))
 
-    print 'test results:'
-    print results
-    """
+                if args['crf_refine']:
+                    prediction = crf_refine(np.array(imgnew), prediction)
+                """
+                gt = np.array(Image.open(os.path.join(root, img_name + '.png')).convert('L'))
+                precision, recall, mae = cal_precision_recall_mae(prediction, gt)
+                for pidx, pdata in enumerate(zip(precision, recall)):
+                    p, r = pdata
+                    precision_record[pidx].update(p)
+                    recall_record[pidx].update(r)
+                mae_record.update(mae)
+                """
+                if args['save_results']:
+                    Image.fromarray(prediction).save(os.path.join(ckpt_path, exp_name, '(%s)%s_%s' % (
+                        newrootname, exp_name, args['snapshot']), img_name + '.png'))
+        """
+            fmeasure = cal_fmeasure([precord.avg for precord in precision_record],
+                                    [rrecord.avg for rrecord in recall_record])
+
+            results[name] = {'fmeasure': fmeasure, 'mae': mae_record.avg}
+
+        print 'test results:'
+        print results
+        """
 
 if __name__ == '__main__':
     main()

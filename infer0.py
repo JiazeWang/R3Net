@@ -31,6 +31,9 @@ img_transform = transforms.Compose([
     transforms.ToTensor(),
     transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])
 ])
+img_convert =  transforms.Compose([
+    transforms.Resize(300)
+])
 to_pil = transforms.ToPILImage()
 
 to_test = {'ecssd': ecssd_path, 'hkuis': hkuis_path, 'pascal': pascals_path, 'sod': sod_path, 'dutomron': dutomron_path}
@@ -60,11 +63,12 @@ def main():
 
             img = Image.open(os.path.join(root, img_name + '.jpg')).convert('RGB')
             img_var = Variable(img_transform(img).unsqueeze(0), volatile=True).cuda()
+            imgnew = img_convert(img)
             prediction = net(img_var)
             prediction = np.array(to_pil(prediction.data.squeeze(0).cpu()))
 
             if args['crf_refine']:
-                prediction = crf_refine(np.array(img), prediction)
+                prediction = crf_refine(np.array(imgnew), prediction)
             """
             gt = np.array(Image.open(os.path.join(root, img_name + '.png')).convert('L'))
             precision, recall, mae = cal_precision_recall_mae(prediction, gt)

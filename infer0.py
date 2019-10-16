@@ -51,7 +51,7 @@ def main():
     with torch.no_grad():
 
         #for name, root in to_test.iteritems():
-        root = '/mnt/SSD/jzwang/frames/shot_used/tt0078841/shot_0431.mp4'
+        root = '/mnt/SSD/jzwang/frames/shot_used/tt0078841/shot_0250.mp4'
         precision_record, recall_record, = [AvgMeter() for _ in range(256)], [AvgMeter() for _ in range(256)]
         mae_record = AvgMeter()
 

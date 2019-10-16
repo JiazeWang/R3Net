@@ -8,7 +8,7 @@ class ResNeXt101(nn.Module):
     def __init__(self):
         super(ResNeXt101, self).__init__()
         net = resnext_101_32x4d_.resnext_101_32x4d
-        net.load_state_dict(torch.load(resnext101_32_path))
+        #net.load_state_dict(torch.load(resnext101_32_path))
 
         net = list(net.children())
         self.layer0 = nn.Sequential(*net[:4])

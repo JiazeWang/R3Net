@@ -102,7 +102,7 @@ def crf_refine(img, annos):
     d.addPairwiseBilateral(sxy=60, srgb=5, rgbim=img, compat=5)
 
     # Do the inference
-    infer = np.array(d.inference(2)).astype('float32')
+    infer = np.array(d.inference(1)).astype('float32')
     res = infer[1, :]
 
     res = res * 255

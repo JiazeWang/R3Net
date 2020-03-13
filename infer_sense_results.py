@@ -95,7 +95,7 @@ def main():
                 e_time =datetime.datetime.now()
                 #print 'infer:', (m_time-s_time).total_seconds(), 'total:', (e_time-s_time).total_seconds()
 
-                gt = np.array(Image.open(os.path.join(root[0:-6], 'mask', 'mask_'+img_name[7:] + '.png')).convert('L'))
+                gt = np.array(Image.open(os.path.join(root[0:-6], 'mask', 'mask_'+img_name[5:] + '.png')).convert('L'))
                 precision, recall, mae = cal_precision_recall_mae(prediction, gt)
                 for pidx, pdata in enumerate(zip(precision, recall)):
                     p, r = pdata

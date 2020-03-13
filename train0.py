@@ -55,7 +55,7 @@ log_path = os.path.join(ckpt_path, exp_name, str(datetime.datetime.now()) + '.tx
 def main():
     net = R3Net().cuda().train()
     print 'load snapshot \'%s\' for testing' % args['snapshot']
-    net.load_state_dict(torch.load(os.path.join(ckpt_path, exp_name, args['snapshot'] + '.pth'), map_location={'cuda:1':'cuda:6'}))
+    net.load_state_dict(torch.load(os.path.join(ckpt_path, exp_name, '6000' + '.pth')))
     optimizer = optim.SGD([
         {'params': [param for name, param in net.named_parameters() if name[-4:] == 'bias'],
          'lr': 2 * args['lr']},

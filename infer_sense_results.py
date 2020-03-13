@@ -9,7 +9,7 @@ import datetime
 from config import ecssd_path, hkuis_path, pascals_path, sod_path, dutomron_path
 from misc import check_mkdir, crf_refine, AvgMeter, cal_precision_recall_mae, cal_fmeasure
 from model import R3Net
-
+import json
 import os
 import pdb
 filename_input = "sense_test_new.txt"
@@ -112,7 +112,7 @@ def main():
 
     print 'test results:'
     print results
-
+    json.dump( results, open( "results_v1.json", 'w' ) )
 
 if __name__ == '__main__':
 

@@ -108,7 +108,7 @@ def main():
                     Image.fromarray(prediction).save(os.path.join(ckpt_path, exp_name, '%s_%s_%s' % (newrootname, exp_name, args['snapshot']), img_name + '.png'))
             fmeasure = cal_fmeasure([precord.avg for precord in precision_record],
                                     [rrecord.avg for rrecord in recall_record])
-            results[root[-4:]] = {'fmeasure': fmeasure, 'mae': mae_record.avg}
+            results[root[-10:-6]] = {'fmeasure': fmeasure, 'mae': mae_record.avg}
 
     print 'test results:'
     print results

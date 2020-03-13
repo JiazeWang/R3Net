@@ -12,7 +12,7 @@ from model import R3Net
 
 import os
 import pdb
-filename_input = "sense_test1.txt"
+filename_input = "sense_test_new.txt"
 with open(filename_input) as f:
     lines = f.readlines()
 folders = []

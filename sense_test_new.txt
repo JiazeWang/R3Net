@@ -1,0 +1,10 @@
+/home/jzwang/image/0002/input
+/home/jzwang/image/0008/input
+/home/jzwang/image/0017/input
+/home/jzwang/image/0020/input
+/home/jzwang/image/0029/input
+/home/jzwang/image/0039/input
+/home/jzwang/image/0041/input
+/home/jzwang/image/0072/input
+/home/jzwang/image/0088/input
+/home/jzwang/image/0101/input

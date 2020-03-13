@@ -106,6 +106,14 @@ def main():
 
                 if args['save_results']:
                     Image.fromarray(prediction).save(os.path.join(ckpt_path, exp_name, '%s_%s_%s' % (newrootname, exp_name, args['snapshot']), img_name + '.png'))
+            fmeasure = cal_fmeasure([precord.avg for precord in precision_record],
+                                    [rrecord.avg for rrecord in recall_record])
+            results[name] = {'fmeasure': fmeasure, 'mae': mae_record.avg}
+
+    print 'test results:'
+    print results
+
+
 if __name__ == '__main__':
 
     main()

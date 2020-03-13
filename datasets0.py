@@ -13,22 +13,23 @@ for line in lines:
     folders.append(line)
 
 
-def make_dataset(root):
+def make_dataset():
     img = []
     ground = []
     for line in folders:
         img_list = [os.path.splitext(f)[0] for f in os.listdir(line) if f.startswith('frame_')]
-        line_train = [(os.path.join(root, img_name + '.png') for img_name in img_list]
-        line_ground = [os.path.join(root[0:-6], 'mask', img_name[6:] + '.png') for for img_name in img_list]
+        line_train = [(os.path.join(line, img_name + '.png')) for img_name in img_list]
+        line_ground = [(os.path.join(line[0:-6], 'mask','mask_'+ img_name[6:] + '.png')) for  img_name in img_list]
         img.append(img_list)
-        ground.appen(line_ground)
+        ground.append(line_ground)
     return img, ground
+
 
 class ImageFolder(data.Dataset):
     # image and gt should be in the same folder and have same filename except extended name (jpg and png respectively)
     def __init__(self, root, joint_transform=None, transform=None, target_transform=None):
         self.root = root
-        self.imgs = make_dataset(root)
+        self.imgs = make_dataset()
         self.joint_transform = joint_transform
         self.transform = transform
         self.target_transform = target_transform

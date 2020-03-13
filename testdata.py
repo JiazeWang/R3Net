@@ -15,10 +15,11 @@ def make_dataset():
         img_list = [os.path.splitext(f)[0] for f in os.listdir(line) if f.startswith('frame_')]
         line_train = [(os.path.join(line, img_name + '.png')) for img_name in img_list]
         line_ground = [(os.path.join(line[0:-6], 'mask','mask_'+ img_name[6:] + '.png')) for  img_name in img_list]
-        img.append(img_list)
-        ground.append(line_ground)
+        img = img + img_list
+        ground = gournd + line_ground
     return img, ground
 
 t1,t2 = make_dataset()
 print(t1)
 print(t2)
+print(len(t1), len(t2))

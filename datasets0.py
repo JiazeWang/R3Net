@@ -29,13 +29,14 @@ class ImageFolder(data.Dataset):
     # image and gt should be in the same folder and have same filename except extended name (jpg and png respectively)
     def __init__(self, root, joint_transform=None, transform=None, target_transform=None):
         self.root = root
-        self.imgs = make_dataset()
+        self.imgs, self.grounds = make_dataset()
         self.joint_transform = joint_transform
         self.transform = transform
         self.target_transform = target_transform
 
     def __getitem__(self, index):
-        img_path, gt_path = self.imgs[index]
+        img_path = self.imgs[index]
+        gt_path = self.grounds[index]
         img = Image.open(img_path).convert('RGB')
         target = Image.open(gt_path).convert('L')
         if self.joint_transform is not None:

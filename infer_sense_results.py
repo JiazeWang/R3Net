@@ -66,7 +66,7 @@ def main():
 
         for root in folders:
             newrootname = root.split('/')[-2]+'_'+ root.split('/')[-1]
-            recision_record, recall_record, = [AvgMeter() for _ in range(256)], [AvgMeter() for _ in range(256)]
+            precision_record, recall_record, = [AvgMeter() for _ in range(256)], [AvgMeter() for _ in range(256)]
             mae_record = AvgMeter()
 
             if args['save_results']:
@@ -96,7 +96,7 @@ def main():
                 #print 'infer:', (m_time-s_time).total_seconds(), 'total:', (e_time-s_time).total_seconds()
 
                 gt = np.array(img_convert(Image.open(os.path.join(root[0:-6], 'mask', 'mask_'+img_name[6:] + '.png')).convert('L')))
-                
+
                 precision, recall, mae = cal_precision_recall_mae(prediction, gt)
                 for pidx, pdata in enumerate(zip(precision, recall)):
                     p, r = pdata

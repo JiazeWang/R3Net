@@ -81,7 +81,7 @@ def main():
                 s_time = datetime.datetime.now()
                 #test_time = (new_time-start_time).seconds
                 #print 'predicting for  %d / %d' % ( idx + 1, len(img_list))
-                print 'predicting for %s: %d / %d' % (root[-5:], idx + 1, len(img_list))
+                print 'predicting for %s: %d / %d' % (root[-6:], idx + 1, len(img_list))
                 img = Image.open(os.path.join(root, img_name + '.png')).convert('RGB')
                 img_var = Variable(img_transform(img).unsqueeze(0), volatile=True).cuda()
                 imgnew = img_convert(img)

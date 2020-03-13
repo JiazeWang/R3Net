@@ -13,8 +13,8 @@ def make_dataset():
     ground = []
     for line in folders:
         img_list = [os.path.splitext(f)[0] for f in os.listdir(line) if f.startswith('frame_')]
-        line_train = [(os.path.join(root, img_name + '.png')) for img_name in img_list]
-        line_ground = [(os.path.join(root[0:-6], 'mask', img_name + '.png')) for  img_name in img_list]
+        line_train = [(os.path.join(line, img_name + '.png')) for img_name in img_list]
+        line_ground = [(os.path.join(line[0:-6], 'mask', img_name + '.png')) for  img_name in img_list]
         img.append(img_list)
         ground.appen(line_ground)
     return img, ground

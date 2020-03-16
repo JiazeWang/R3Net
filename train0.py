@@ -24,8 +24,8 @@ ckpt_path = './ckpt'
 exp_name = 'R3Net'
 
 args = {
-    'iter_num': 18000,
-    'train_batch_size': 14,
+    'iter_num': 20000,
+    'train_batch_size': 10,
     'last_iter': 0,
     'lr': 1e-3,
     'lr_decay': 0.9,
@@ -54,7 +54,7 @@ log_path = os.path.join(ckpt_path, exp_name, str(datetime.datetime.now()) + '.tx
 
 def main():
     net = R3Net().cuda().train()
-    print 'load pretrained model from R3Net:6000.pth' 
+    print 'load pretrained model from R3Net:6000.pth'
     net.load_state_dict(torch.load(os.path.join(ckpt_path, exp_name, '6000' + '.pth')))
     optimizer = optim.SGD([
         {'params': [param for name, param in net.named_parameters() if name[-4:] == 'bias'],

@@ -4,7 +4,7 @@ import os.path
 import torch.utils.data as data
 from PIL import Image
 
-filename_input = "sense_train.txt"
+filename_input = "sense_train3.txt"
 with open(filename_input) as f:
     lines = f.readlines()
 folders = []

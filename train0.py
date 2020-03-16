@@ -18,7 +18,7 @@ from torch.backends import cudnn
 cudnn.benchmark = True
 
 torch.manual_seed(2018)
-torch.cuda.set_device(0)
+torch.cuda.set_device(2)
 
 ckpt_path = './ckpt'
 exp_name = 'R3Net'

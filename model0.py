@@ -64,13 +64,13 @@ class R3Net(nn.Module):
     def forward(self, x):
         layer0 = self.layer0(x)
         layer1 = self.layer1(layer0)
-        print("layer1", layer1.shape)
+        #print("layer1", layer1.shape)
         layer2 = self.layer2(layer1)
-        print("layer2", layer2.shape)
+        #print("layer2", layer2.shape)
         layer3 = self.layer3(layer2)
-        print("layer3", layer3.shape)
+        #print("layer3", layer3.shape)
         layer4 = self.layer4(layer3)
-        print("layer4", layer4.shape)
+        #print("layer4", layer4.shape)
         l0_size = layer0.size()[2:]
         reduce_low = self.reduce_low(torch.cat((
             layer0,

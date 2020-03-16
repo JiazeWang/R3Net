@@ -12,7 +12,7 @@ import joint_transforms
 from config import msra10k_path
 from datasets0 import ImageFolder
 from misc import AvgMeter, check_mkdir
-from model import R3Net
+from model0 import R3Net
 from torch.backends import cudnn
 
 cudnn.benchmark = True

@@ -2,58 +2,58 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 
-from resnext import ResNeXt101
+from vgg import B2_VGG
 
 
 class R3Net(nn.Module):
     def __init__(self):
         super(R3Net, self).__init__()
-        resnext = ResNeXt101()
-        self.layer0 = resnext.layer0
-        self.layer1 = resnext.layer1
-        self.layer2 = resnext.layer2
-        self.layer3 = resnext.layer3
-        self.layer4 = resnext.layer4
+        vgg = B2_VGG()
+        self.layer0 = vgg.conv1
+        self.layer1 = vgg.conv2
+        self.layer2 = vgg.conv3
+        self.layer3 = vgg.conv4
+        self.layer4 = vgg.conv5
 
         self.reduce_low = nn.Sequential(
-            nn.Conv2d(64 + 256 + 512, 256, kernel_size=3, padding=1), nn.BatchNorm2d(256), nn.PReLU(),
-            nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.BatchNorm2d(256), nn.PReLU(),
-            nn.Conv2d(256, 256, kernel_size=1), nn.BatchNorm2d(256), nn.PReLU()
+            nn.Conv2d(64 + 128 + 256, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(128, 128, kernel_size=1), nn.BatchNorm2d(128), nn.PReLU()
         )
         self.reduce_high = nn.Sequential(
-            nn.Conv2d(1024 + 2048, 256, kernel_size=3, padding=1), nn.BatchNorm2d(256), nn.PReLU(),
-            nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.BatchNorm2d(256), nn.PReLU(),
-            _ASPP(256)
+            nn.Conv2d(512 + 512, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            _ASPP(128)
         )
 
-        self.predict0 = nn.Conv2d(256, 1, kernel_size=1)
+        self.predict0 = nn.Conv2d(128, 1, kernel_size=1)
         self.predict1 = nn.Sequential(
-            nn.Conv2d(257, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(129, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 1, kernel_size=1)
         )
         self.predict2 = nn.Sequential(
-            nn.Conv2d(257, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(129, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 1, kernel_size=1)
         )
         self.predict3 = nn.Sequential(
-            nn.Conv2d(257, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(129, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 1, kernel_size=1)
         )
         self.predict4 = nn.Sequential(
-            nn.Conv2d(257, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(129, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 1, kernel_size=1)
         )
         self.predict5 = nn.Sequential(
-            nn.Conv2d(257, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(129, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 1, kernel_size=1)
         )
         self.predict6 = nn.Sequential(
-            nn.Conv2d(257, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
+            nn.Conv2d(129, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.BatchNorm2d(128), nn.PReLU(),
             nn.Conv2d(128, 1, kernel_size=1)
         )

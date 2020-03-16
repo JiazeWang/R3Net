@@ -134,3 +134,10 @@ class _ASPP(nn.Module):
         conv5 = F.upsample(self.conv5(F.adaptive_avg_pool2d(x, 1)), size=x.size()[2:], mode='bilinear',
                            align_corners=True)
         return self.fuse(torch.cat((conv1, conv2, conv3, conv4, conv5), 1))
+
+if __name__ == "__main__":
+    input_tensor = torch.rand(8, 3, 224, 224)
+    model = R3Net()
+    print(model)
+    output = model(input_tensor)
+    print(output.size())

@@ -12,7 +12,7 @@ import joint_transforms
 from config import msra10k_path
 from datasets0 import ImageFolder
 from misc import AvgMeter, check_mkdir
-from model0 import R3Net
+from model import R3Net
 from torch.backends import cudnn
 
 cudnn.benchmark = True
@@ -24,7 +24,7 @@ ckpt_path = './ckpt'
 exp_name = 'R3Net'
 
 args = {
-    'iter_num': 20000,
+    'iter_num': 40000,
     'train_batch_size': 10,
     'last_iter': 0,
     'lr': 1e-3,

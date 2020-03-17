@@ -8,7 +8,7 @@ from torchvision import transforms
 import datetime
 from config import ecssd_path, hkuis_path, pascals_path, sod_path, dutomron_path
 from misc import check_mkdir, crf_refine, AvgMeter, cal_precision_recall_mae, cal_fmeasure
-from model0 import R3Net
+from model import R3Net
 import json
 import os
 import pdb
@@ -26,15 +26,15 @@ for line in lines:
 torch.manual_seed(2018)
 
 # set which gpu to use
-torch.cuda.set_device(1)
+torch.cuda.set_device(0)
 
 # the following two args specify the location of the file of trained model (pth extension)
 # you should have the pth file in the folder './$ckpt_path$/$exp_name$'
-ckpt_path = './ckptvgg'
+ckpt_path = './ckpt'
 exp_name = 'R3Net'
 
 args = {
-    'snapshot': '100000',  # your snapshot filename (exclude extension name)
+    'snapshot': '20000',  # your snapshot filename (exclude extension name)
     'crf_refine': True,  # whether to use crf to refine results
     'save_results': True  # whether to save the resulting masks
 }

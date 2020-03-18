@@ -34,7 +34,7 @@ ckpt_path = './ckpt'
 exp_name = 'R3Net'
 
 args = {
-    'snapshot': '20000',  # your snapshot filename (exclude extension name)
+    'snapshot': '40000',  # your snapshot filename (exclude extension name)
     'crf_refine': True,  # whether to use crf to refine results
     'save_results': True  # whether to save the resulting masks
 }
@@ -65,14 +65,15 @@ def main():
     with torch.no_grad():
 
         for root in folders:
-            newrootname = root.split('/')[-2]+'_'+ root.split('/')[-1]
+            #newrootname = root.split('/')[-2]+'_'+ root.split('/')[-1]
+            newrootname = root.split('/')[-2]
             precision_record, recall_record, = [AvgMeter() for _ in range(256)], [AvgMeter() for _ in range(256)]
             mae_record = AvgMeter()
 
             if args['save_results']:
                 #check_mkdir('%s_%s' % ("sensetime", "test1"))
                 #check_mkdir(os.path.join(ckpt_path, exp_name, '(%s) %s_%s' % (exp_name, name, args['snapshot'])))
-                check_mkdir(os.path.join(ckpt_path, exp_name, '%s_%s_%s' % (newrootname, exp_name, args['snapshot'])))
+                check_mkdir(os.path.join(ckpt_path, exp_name, '%s' % (newrootname)))
             img_list = [os.path.splitext(f)[0] for f in os.listdir(root) if f.startswith('frame_')]
             num = num + 1
             print 'predicting for  %d' % (num)
@@ -105,14 +106,14 @@ def main():
                 mae_record.update(mae)
 
                 if args['save_results']:
-                    Image.fromarray(prediction).save(os.path.join(ckpt_path, exp_name, '%s_%s_%s' % (newrootname, exp_name, args['snapshot']), img_name + '.png'))
+                    Image.fromarray(prediction).save(os.path.join(ckpt_path, exp_name, '%s' % (newrootname), 'seg_'+img_name[-6:] + '.png'))
             fmeasure = cal_fmeasure([precord.avg for precord in precision_record],
                                     [rrecord.avg for rrecord in recall_record])
             results[root[-10:-6]] = {'fmeasure': fmeasure, 'mae': mae_record.avg}
 
     print 'test results:'
     print results
-    json.dump( results, open( "results_v1.json", 'w' ) )
+    json.dump( results, open( "results_new.json", 'w' ) )
 
 if __name__ == '__main__':
 

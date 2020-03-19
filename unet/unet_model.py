@@ -6,11 +6,11 @@ from unet_parts import *
 
 
 class UNet(nn.Module):
-    def __init__(self, n_channels=3, n_classes=1, bilinear=True):
+    def __init__(self):
         super(UNet, self).__init__()
-        self.n_channels = n_channels
-        self.n_classes = n_classes
-        self.bilinear = bilinear
+        self.n_channels = 3
+        self.n_classes = 1
+        self.bilinear = True
 
         self.inc = DoubleConv(n_channels, 64)
         self.down1 = Down(64, 128)
@@ -39,7 +39,7 @@ class UNet(nn.Module):
 
 if __name__ == "__main__":
     input_tensor = torch.rand(8, 3, 224, 224)
-    model = UNet(n_channels=3, n_classes=1)
+    model = UNet()
     print(model)
     output = model(input_tensor)
     print(output.size())

@@ -1,4 +1,3 @@
-Learn more or give us feedback
 """ Parts of the U-Net model """
 
 import torch

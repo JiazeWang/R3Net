@@ -54,8 +54,8 @@ log_path = os.path.join(ckpt_path, exp_name, str(datetime.datetime.now()) + '.tx
 
 def main():
     net = UNet().cuda().train()
-    print 'load pretrained model from R3Net:6000.pth'
-    net.load_state_dict(torch.load(os.path.join(ckpt_path, exp_name, '6000' + '.pth')))
+    #print 'load pretrained model from R3Net:6000.pth'
+    #net.load_state_dict(torch.load(os.path.join(ckpt_path, exp_name, '6000' + '.pth')))
     optimizer = optim.SGD([
         {'params': [param for name, param in net.named_parameters() if name[-4:] == 'bias'],
          'lr': 2 * args['lr']},

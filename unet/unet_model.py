@@ -6,7 +6,7 @@ from unet_parts import *
 
 
 class UNet(nn.Module):
-    def __init__(self, n_channels, n_classes=1, bilinear=True):
+    def __init__(self, n_channels=3, n_classes=1, bilinear=True):
         super(UNet, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
@@ -39,7 +39,7 @@ class UNet(nn.Module):
 
 if __name__ == "__main__":
     input_tensor = torch.rand(8, 3, 224, 224)
-    model = UNet()
+    model = UNet(n_channels=3, n_classes=1)
     print(model)
     output = model(input_tensor)
     print(output.size())

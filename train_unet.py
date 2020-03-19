@@ -24,10 +24,10 @@ ckpt_path = './ckpt'
 exp_name = 'R3Net'
 
 args = {
-    'iter_num': 40000,
+    'iter_num': 80000,
     'train_batch_size': 10,
     'last_iter': 0,
-    'lr': 1e-3,
+    'lr': 1e-1,
     'lr_decay': 0.9,
     'weight_decay': 5e-4,
     'momentum': 0.9,

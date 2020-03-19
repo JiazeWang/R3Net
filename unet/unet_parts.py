@@ -55,6 +55,8 @@ class Up(nn.Module):
         # input is CHW
         diffY = torch.tensor([x2.size()[2] - x1.size()[2]])
         diffX = torch.tensor([x2.size()[3] - x1.size()[3]])
+        print(x2.size()[2], x1.size()[2])
+        print(x2.size()[3], x1.size()[3])
         print(diffY.shape, diffX.shape)
         x1 = F.pad(x1, [diffX // 2, diffX - diffX // 2,
                         diffY // 2, diffY - diffY // 2])

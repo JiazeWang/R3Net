@@ -1,7 +1,6 @@
-""" Full assembly of the parts to form the complete network """
+from future import division
 
 import torch.nn.functional as F
-from future import division
 from unet_parts import *
 
 

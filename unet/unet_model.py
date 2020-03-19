@@ -1,4 +1,4 @@
-from future import division
+from __future__ import division
 
 import torch.nn.functional as F
 from unet_parts import *

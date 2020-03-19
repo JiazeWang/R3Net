@@ -96,6 +96,7 @@ class R3Net(nn.Module):
         predict4 = F.upsample(predict4, size=x.size()[2:], mode='bilinear', align_corners=True)
         predict5 = F.upsample(predict5, size=x.size()[2:], mode='bilinear', align_corners=True)
         predict6 = F.upsample(predict6, size=x.size()[2:], mode='bilinear', align_corners=True)
+        print("predict6.shape:", predict6.shape)
 
         if self.training:
             return predict0, predict1, predict2, predict3, predict4, predict5, predict6

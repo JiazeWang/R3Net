@@ -27,7 +27,7 @@ args = {
     'iter_num': 80000,
     'train_batch_size': 10,
     'last_iter': 0,
-    'lr': 1e-1,
+    'lr': 1e-3,
     'lr_decay': 0.9,
     'weight_decay': 5e-4,
     'momentum': 0.9,
@@ -56,7 +56,7 @@ def main():
     net = UNet().cuda().train()
     #print 'load pretrained model from R3Net:6000.pth'
     #net.load_state_dict(torch.load(os.path.join(ckpt_path, exp_name, '6000' + '.pth')))
-    optimizer = optim.SGD([
+    optimizer = optim.Adam([
         {'params': [param for name, param in net.named_parameters() if name[-4:] == 'bias'],
          'lr': 2 * args['lr']},
         {'params': [param for name, param in net.named_parameters() if name[-4:] != 'bias'],
@@ -83,10 +83,10 @@ def train(net, optimizer):
         loss3_record, loss4_record, loss5_record, loss6_record = AvgMeter(), AvgMeter(), AvgMeter(), AvgMeter()
 
         for i, data in enumerate(train_loader):
-            optimizer.param_groups[0]['lr'] = 2 * args['lr'] * (1 - float(curr_iter) / args['iter_num']
-                                                                ) ** args['lr_decay']
-            optimizer.param_groups[1]['lr'] = args['lr'] * (1 - float(curr_iter) / args['iter_num']
-                                                            ) ** args['lr_decay']
+            #optimizer.param_groups[0]['lr'] = 2 * args['lr'] * (1 - float(curr_iter) / args['iter_num']
+            #                                                    ) ** args['lr_decay']
+            #optimizer.param_groups[1]['lr'] = args['lr'] * (1 - float(curr_iter) / args['iter_num']
+            #                                                ) ** args['lr_decay']
 
             inputs, labels = data
             batch_size = inputs.size(0)

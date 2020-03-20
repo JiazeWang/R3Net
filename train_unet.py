@@ -61,7 +61,7 @@ def main():
          'lr': 2 * args['lr']},
         {'params': [param for name, param in net.named_parameters() if name[-4:] != 'bias'],
          'lr': args['lr'], 'weight_decay': args['weight_decay']}
-    ], momentum=args['momentum'])
+    ])
 
     if len(args['snapshot']) > 0:
         print 'training resumes from ' + args['snapshot']

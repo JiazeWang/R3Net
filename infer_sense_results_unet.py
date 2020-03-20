@@ -87,7 +87,7 @@ def main():
                 img = Image.open(os.path.join(root, img_name + '.png')).convert('RGB')
                 img_var = Variable(img_transform(img).unsqueeze(0), volatile=True).cuda()
                 imgnew = img_convert(img)
-                #imgnew = img
+                print("img_var.shape:",img_var.shape)
                 prediction = net(img_var)
                 prediction = np.array(to_pil(prediction.data.squeeze(0).cpu()))
                 m_time = datetime.datetime.now()

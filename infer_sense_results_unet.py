@@ -31,7 +31,7 @@ torch.cuda.set_device(1)
 
 # the following two args specify the location of the file of trained model (pth extension)
 # you should have the pth file in the folder './$ckpt_path$/$exp_name$'
-ckpt_path = './ckptvgg'
+ckpt_path = './ckpt'
 exp_name = 'Unet_sgd'
 
 args = {

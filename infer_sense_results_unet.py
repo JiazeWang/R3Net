@@ -32,11 +32,11 @@ torch.cuda.set_device(1)
 
 # the following two args specify the location of the file of trained model (pth extension)
 # you should have the pth file in the folder './$ckpt_path$/$exp_name$'
-ckpt_path = './ckpt'
-exp_name = 'Unet_sgd'
+ckpt_path = './unet_after_pretrain'
+exp_name = 'R3Net'
 
 args = {
-    'snapshot': '80000_unet',  # your snapshot filename (exclude extension name)
+    'snapshot': '40000_unet',  # your snapshot filename (exclude extension name)
     'crf_refine': True,  # whether to use crf to refine results
     'save_results': True  # whether to save the resulting masks
 }
@@ -114,7 +114,7 @@ def main():
 
     print 'test results:'
     print results
-    json.dump( results, open( "results_unet_sgd.json", 'w' ) )
+    json.dump( results, open( "results_unet_after_pretrain.json", 'w' ) )
 
 if __name__ == '__main__':
 
